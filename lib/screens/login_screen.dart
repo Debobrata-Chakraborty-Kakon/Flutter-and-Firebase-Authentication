@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:user_auth/screens/home_screen.dart';
 import 'package:user_auth/screens/registration_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -61,7 +62,10 @@ class _LoginScreenState extends State<LoginScreen> {
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        },
         child: Text(
           "Login",
           textAlign: TextAlign.center,
@@ -85,53 +89,55 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Form(
                 key: _formKey,
                 child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 200,
-                        child: Image.asset(
-                          "assets/logo.jpg",
-                          fit: BoxFit.contain,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 200,
+                      child: Image.asset(
+                        "assets/logo.jpg",
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    emailField,
+                    SizedBox(
+                      height: 25,
+                    ),
+                    passwordField,
+                    SizedBox(
+                      height: 35,
+                    ),
+                    loginButton,
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text("Don't have an account? "),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        RegistrationScreen()));
+                          },
+                          child: Text(
+                            "Sign up!",
+                            style: TextStyle(
+                                color: Colors.green,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15),
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      emailField,
-                      SizedBox(
-                        height: 25,
-                      ),
-                      passwordField,
-                      SizedBox(
-                        height: 35,
-                      ),
-                      loginButton,
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text("Don't have an account? "),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            RegistrationScreen()));
-                              },
-                              child: Text(
-                                "Sign up!",
-                                style: TextStyle(
-                                    color: Colors.green,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15),
-                              ),
-                            ),
-                          ])
-                    ]),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
