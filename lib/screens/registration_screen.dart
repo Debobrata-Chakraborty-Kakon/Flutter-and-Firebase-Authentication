@@ -24,7 +24,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       keyboardType: TextInputType.name,
       //validator: (){},
       onSaved: (value) {
-        firstNameEditingController.text = value;
+        firstNameEditingController.text = value ?? "";
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -43,7 +43,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       keyboardType: TextInputType.name,
       //validator: (){},
       onSaved: (value) {
-        lastNameEditingController.text = value;
+        lastNameEditingController.text = value ?? "";
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -62,7 +62,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       keyboardType: TextInputType.emailAddress,
       //validator: (){},
       onSaved: (value) {
-        emailEditingController.text = value;
+        emailEditingController.text = value ?? "";
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -81,7 +81,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       obscureText: true,
       //validator: (){},
       onSaved: (value) {
-        passwordEditingController.text = value;
+        passwordEditingController.text = value ?? "";
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -100,7 +100,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       obscureText: true,
       //validator: (){},
       onSaved: (value) {
-        confirmPasswordEditingController.text = value;
+        confirmPasswordEditingController.text = value ?? "";
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
@@ -136,17 +136,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-            icon: Icon(
-          Icons.arrow_back,
-          color: Colors.green),
-          onPressed: (){
-            Navigator.of(context).pop();
-          },
-        )),
-      
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.green),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          )),
       body: Center(
         child: SingleChildScrollView(
           child: Container(
