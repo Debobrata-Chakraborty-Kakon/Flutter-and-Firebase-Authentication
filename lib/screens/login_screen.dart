@@ -20,6 +20,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _auth = FirebaseAuth.instance;
 
+  bool _hidePassword = true;
+
   @override
   Widget build(BuildContext context) {
     final emailField = TextFormField(
@@ -54,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final passwordField = TextFormField(
       autofocus: false,
       controller: passwordController,
-      obscureText: true,
+      obscureText: _hidePassword,
       validator: (value) {
         RegExp regex = new RegExp(r'^.{6,}$');
         if (value!.isEmpty) {
@@ -63,6 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (!regex.hasMatch(value)) {
           return ("Please Enter Valid  Password(Min, 6 Characters)");
         }
+        return null;
       },
       onSaved: (value) {
         passwordController.text = value ?? "";
@@ -70,6 +73,14 @@ class _LoginScreenState extends State<LoginScreen> {
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.vpn_key),
+        suffixIcon: GestureDetector(
+          onTap: () {
+            setState(() {
+              _hidePassword = !_hidePassword;
+            });
+          },
+          child: Icon(_hidePassword ? Icons.visibility : Icons.visibility_off),
+        ),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Password",
         border: OutlineInputBorder(
@@ -88,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: () {
           signIn(emailController.text, passwordController.text);
         },
-        child: Text(
+        child: const Text(
           "Login",
           textAlign: TextAlign.center,
           style: TextStyle(
