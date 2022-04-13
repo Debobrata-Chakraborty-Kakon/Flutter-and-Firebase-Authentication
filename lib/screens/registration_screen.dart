@@ -6,7 +6,7 @@ import 'package:user_auth/model/user_model.dart';
 import 'package:user_auth/screens/home_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
-  //const RegistrationScreen({ Key? key }) : super(key: key);
+  const RegistrationScreen({Key? key}) : super(key: key);
 
   @override
   State<RegistrationScreen> createState() => _RegistrationScreenState();
@@ -102,7 +102,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         prefixIcon: Icon(Icons.mail),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Email",
-        border: OutlineInputBorder(
+        border: OutlineInputBorder( 
           borderRadius: BorderRadius.circular(10),
         ),
       ),

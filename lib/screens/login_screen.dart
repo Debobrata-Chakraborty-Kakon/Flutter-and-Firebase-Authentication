@@ -5,7 +5,7 @@ import 'package:user_auth/screens/home_screen.dart';
 import 'package:user_auth/screens/registration_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  //const LoginScreen({ Key? key }) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -141,8 +141,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     passwordField,
                     SizedBox(
-                      height: 35,
+                      height: 5,
                     ),
+                    forgetPassword(context),
                     loginButton,
                     SizedBox(
                       height: 15,
@@ -192,5 +193,20 @@ class _LoginScreenState extends State<LoginScreen> {
         Fluttertoast.showToast(msg: e!.message);
       });
     }
+  }
+
+  Widget forgetPassword(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 35,
+      alignment: Alignment.bottomRight,
+      child: TextButton(
+        child: const Text(
+          "Forget Password?",
+          textAlign: TextAlign.right,
+        ),
+        onPressed: () {},
+      ),
+    );
   }
 }
