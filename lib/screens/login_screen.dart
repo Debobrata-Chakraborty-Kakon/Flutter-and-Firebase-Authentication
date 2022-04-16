@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:user_auth/screens/forget_password.dart';
 import 'package:user_auth/screens/home_screen.dart';
 import 'package:user_auth/screens/registration_screen.dart';
 
@@ -205,7 +206,10 @@ class _LoginScreenState extends State<LoginScreen> {
           "Forget Password?",
           textAlign: TextAlign.right,
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ForgetPassword()));
+        },
       ),
     );
   }
