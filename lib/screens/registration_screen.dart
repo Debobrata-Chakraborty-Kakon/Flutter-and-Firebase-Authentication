@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:user_auth/model/user_model.dart';
 import 'package:user_auth/screens/home_screen.dart';
+import 'package:user_auth/screens/verify.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -102,7 +103,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         prefixIcon: Icon(Icons.mail),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Email",
-        border: OutlineInputBorder( 
+        border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
       ),
@@ -189,14 +190,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.green),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          )),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.green),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
       body: Center(
         child: SingleChildScrollView(
           child: Container(
@@ -212,8 +214,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       SizedBox(
                         height: 200,
                         child: Image.asset(
-                          "assets/logo.jpg",
-                          fit: BoxFit.contain,
+                          "assets/signup.png",
+                          height: 100,
+                          width: 100,
                         ),
                       ),
                       SizedBox(
@@ -277,10 +280,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         .collection("users")
         .doc(user.uid)
         .set(userModel.toMap());
-    Fluttertoast.showToast(msg: "Account Created Successfully");
+    //
     Navigator.pushAndRemoveUntil(
         (context),
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => VerifyScreen()),
         (route) => false);
   }
 }

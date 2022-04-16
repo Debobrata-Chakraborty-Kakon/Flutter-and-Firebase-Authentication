@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
       borderRadius: BorderRadius.circular(30),
       color: Colors.green,
       child: MaterialButton(
-        padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
           signIn(emailController.text, passwordController.text);
@@ -133,20 +133,20 @@ class _LoginScreenState extends State<LoginScreen> {
                         fit: BoxFit.contain,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     emailField,
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
                     passwordField,
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     forgetPassword(context),
                     loginButton,
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Row(
@@ -161,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     builder: (context) =>
                                         RegistrationScreen()));
                           },
-                          child: Text(
+                          child: const Text(
                             "Sign up!",
                             style: TextStyle(
                                 color: Colors.green,

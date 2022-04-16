@@ -37,7 +37,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.mail),
+        prefixIcon: const Icon(Icons.mail),
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Email",
         border: OutlineInputBorder(
@@ -88,7 +88,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         elevation: 0,
         title: const Text(
           "Reset Password",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.normal),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
         ),
       ),
       body: Center(
@@ -107,7 +107,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       height: 200,
                       child: Image.asset(
                         "assets/password.png",
-                        fit: BoxFit.contain,
+                        height: 100,
+                        width: 100,
                       ),
                     ),
                     const SizedBox(
