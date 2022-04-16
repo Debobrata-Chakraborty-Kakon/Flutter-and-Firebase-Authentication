@@ -21,6 +21,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _auth = FirebaseAuth.instance;
 
+  late User user;
+
   bool _hidePassword = true;
 
   @override

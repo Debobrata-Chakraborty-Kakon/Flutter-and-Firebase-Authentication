@@ -280,7 +280,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         .collection("users")
         .doc(user.uid)
         .set(userModel.toMap());
-    //
+
     Navigator.pushAndRemoveUntil(
         (context),
         MaterialPageRoute(builder: (context) => VerifyScreen()),
