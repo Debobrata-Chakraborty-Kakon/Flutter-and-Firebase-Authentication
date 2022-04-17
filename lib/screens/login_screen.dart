@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:user_auth/screens/forget_password.dart';
 import 'package:user_auth/screens/home_screen.dart';
 import 'package:user_auth/screens/registration_screen.dart';
+import 'package:user_auth/screens/verify.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _auth = FirebaseAuth.instance;
 
-  late User user;
+  //late User user;
 
   bool _hidePassword = true;
 
@@ -184,17 +185,30 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void signIn(String email, String password) async {
+    _formKey.currentState!.save();
     if (_formKey.currentState!.validate()) {
-      await _auth
-          .signInWithEmailAndPassword(email: email, password: password)
-          .then((uid) => {
-                Fluttertoast.showToast(msg: "Login Successful"),
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => HomeScreen())),
-              })
-          .catchError((e) {
-        Fluttertoast.showToast(msg: e!.message);
-      });
+      try {
+        final user = await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        // print("hello ${user}");
+
+        if (user.user!.emailVerified) {
+          Navigator.of(context)
+              .pushReplacement(
+                  MaterialPageRoute(builder: (context) => HomeScreen()))
+              .catchError((e) {
+            Fluttertoast.showToast(msg: e!.message);
+          });
+        } else {
+          Fluttertoast.showToast(msg: "Email is not verified");
+          Navigator.pushAndRemoveUntil(
+              (context),
+              MaterialPageRoute(builder: (context) => const VerifyScreen()),
+              (route) => false);
+        }
+      } catch (e) {
+        Fluttertoast.showToast(msg: "Email is not registered!");
+      }
     }
   }
 

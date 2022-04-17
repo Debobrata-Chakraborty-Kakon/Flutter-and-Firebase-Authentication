@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:user_auth/screens/home_screen.dart';
+import 'package:user_auth/screens/login_screen.dart';
 
 import '../model/user_model.dart';
 
@@ -24,7 +25,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
     user = _auth.currentUser;
     user!.sendEmailVerification();
 
-    timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 3), (timer) {
       checkEmailVerified();
     });
     super.initState();
@@ -43,23 +44,36 @@ class _VerifyScreenState extends State<VerifyScreen> {
         child: Padding(
           padding: EdgeInsets.all(20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                height: 200,
-                child: Image.asset(
-                  "assets/email-verify.png",
-                  height: 100,
-                  width: 100,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  height: 200,
+                  child: Image.asset(
+                    "assets/email-verify.png",
+                    height: 100,
+                    width: 100,
+                  ),
                 ),
-              ),
-              Text(
-                "An email has been sent to ${user!.email}\n Please verify!",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
-              ),
-            ],
-          ),
+                Text(
+                  "An email has been sent to ${user!.email}\n             Please verify!",
+                  style: const TextStyle(
+                      fontSize: 12, fontWeight: FontWeight.normal),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()));
+                  },
+                  child: const Text(
+                    "Log In",
+                    style: TextStyle(
+                        color: Colors.green,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15),
+                  ),
+                ),
+              ]),
         ),
       ),
     );
@@ -73,10 +87,6 @@ class _VerifyScreenState extends State<VerifyScreen> {
       timer!.cancel();
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const HomeScreen()));
-
     }
   }
-  
-    
 }
-  

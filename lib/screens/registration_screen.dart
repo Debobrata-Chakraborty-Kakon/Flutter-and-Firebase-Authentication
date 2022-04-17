@@ -283,7 +283,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     Navigator.pushAndRemoveUntil(
         (context),
-        MaterialPageRoute(builder: (context) => VerifyScreen()),
+        MaterialPageRoute(builder: (context) => const VerifyScreen()),
         (route) => false);
   }
 }
