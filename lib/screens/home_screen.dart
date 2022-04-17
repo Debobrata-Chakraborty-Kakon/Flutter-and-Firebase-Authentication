@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_auth/model/user_model.dart';
 import 'package:user_auth/screens/login_screen.dart';
 
@@ -12,6 +13,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late SharedPreferences logindata;
+  late String email;
+
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
 
@@ -19,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    initial();
     FirebaseFirestore.instance
         .collection("users")
         .doc(user!.uid)
@@ -27,6 +32,12 @@ class _HomeScreenState extends State<HomeScreen> {
       this.loggedInUser = UserModel.fromMap(value.data());
       setState(() {});
     });
+  }
+  
+ //persistent Login
+  void initial() async {
+    logindata = await SharedPreferences.getInstance();
+     
   }
 
   @override
@@ -89,6 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
+    logindata.setBool('login', true);
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const LoginScreen()));
   }

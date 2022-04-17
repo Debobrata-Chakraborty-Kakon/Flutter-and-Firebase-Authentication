@@ -1,13 +1,9 @@
 import 'dart:async';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:user_auth/screens/home_screen.dart';
 import 'package:user_auth/screens/login_screen.dart';
-
-import '../model/user_model.dart';
 
 class VerifyScreen extends StatefulWidget {
   const VerifyScreen({Key? key}) : super(key: key);
@@ -30,6 +26,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
     });
     super.initState();
   }
+  
 
   @override
   void dispose() {

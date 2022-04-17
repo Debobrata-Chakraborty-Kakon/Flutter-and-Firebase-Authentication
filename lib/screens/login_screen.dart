@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_auth/screens/forget_password.dart';
 import 'package:user_auth/screens/home_screen.dart';
 import 'package:user_auth/screens/registration_screen.dart';
@@ -22,9 +23,37 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _auth = FirebaseAuth.instance;
 
-  //late User user;
+  late SharedPreferences logindata;
+
+  late bool newuser;
 
   bool _hidePassword = true;
+
+  //persistent Login
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkLoginActivity();
+  }
+
+  //persistent Login
+  void checkLoginActivity() async {
+    logindata = await SharedPreferences.getInstance();
+    newuser = (logindata.getBool('login') ?? true);
+    if (newuser == false) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => HomeScreen()));
+    }
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: MaterialButton(
         padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: () {
+        onPressed: () async {
           signIn(emailController.text, passwordController.text);
         },
         child: const Text(
@@ -155,14 +184,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text("Don't have an account? "),
+                        const Text("Don't have an account? "),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        RegistrationScreen()));
+                                        const RegistrationScreen()));
                           },
                           child: const Text(
                             "Sign up!",
@@ -199,6 +228,8 @@ class _LoginScreenState extends State<LoginScreen> {
               .catchError((e) {
             Fluttertoast.showToast(msg: e!.message);
           });
+          logindata.setBool('login', false);
+        
         } else {
           Fluttertoast.showToast(msg: "Email is not verified");
           Navigator.pushAndRemoveUntil(
