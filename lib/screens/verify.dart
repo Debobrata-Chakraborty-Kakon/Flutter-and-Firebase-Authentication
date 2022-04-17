@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_auth/screens/home_screen.dart';
 import 'package:user_auth/screens/login_screen.dart';
 
@@ -13,6 +14,10 @@ class VerifyScreen extends StatefulWidget {
 }
 
 class _VerifyScreenState extends State<VerifyScreen> {
+  late SharedPreferences logindata;
+
+  late bool newuser;
+
   final _auth = FirebaseAuth.instance;
   User? user;
   Timer? timer;
@@ -25,8 +30,17 @@ class _VerifyScreenState extends State<VerifyScreen> {
       checkEmailVerified();
     });
     super.initState();
+    checkLoginActivity();
   }
-  
+
+  void checkLoginActivity() async {
+    logindata = await SharedPreferences.getInstance();
+    newuser = (logindata.getBool('login') ?? true);
+    if (newuser == false) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => HomeScreen()));
+    }
+  }
 
   @override
   void dispose() {
@@ -59,8 +73,10 @@ class _VerifyScreenState extends State<VerifyScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()));
                   },
                   child: const Text(
                     "Log In",
@@ -82,6 +98,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
     if (user!.emailVerified) {
       Fluttertoast.showToast(msg: "Account Created Successfully");
       timer!.cancel();
+      logindata.setBool('login', false);
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const HomeScreen()));
     }
